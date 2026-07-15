@@ -1,20 +1,19 @@
 ```markdown
-# Hybrid Data Engineering Pipeline (Batch + Stream)
+**Hybrid Data Engineering Pipeline (Batch + Stream)**
 
 A hybrid batch + streaming data pipeline for real-time e-commerce analytics. Loads 15,000+ historical transactions in bulk, streams simulated live transactions through Kafka, processes both with Spark Structured Streaming using windowed aggregation, stores results in PostgreSQL, and visualizes everything on a live-refreshing Streamlit dashboard.
 
-## Tech Stack
+**Tech Stack**
 Apache Kafka, Apache Spark (Structured Streaming), PostgreSQL, Streamlit, SQLAlchemy, Docker Compose
 
-## Architecture
+**Architecture**
 
-```
 CSV (historical) ──► pipeline_init.py ──► PostgreSQL
 
 stream_producer.py ──► Kafka ──► spark_processor.py ──► PostgreSQL ──► dashboard.py (Streamlit)
 ```
 
-## How It Works
+**How It Works**
 - **Batch layer**: `pipeline_init.py` loads 15,000 historical transactions into PostgreSQL.
 - **Stream producer**: `stream_producer.py` publishes simulated live transactions to Kafka at 1 record/sec.
 - **Stream processing**: `spark_processor.py` consumes from Kafka, aggregates revenue by category using a **2-minute tumbling window** with a 2-minute watermark, and writes results to PostgreSQL every minute.
@@ -22,13 +21,14 @@ stream_producer.py ──► Kafka ──► spark_processor.py ──► Postgr
 
 Windowed aggregation cuts database writes by ~98% (8 category writes per window vs. 120 raw records).
 
-## Data Model
+**Data Model**
 `sales_historical`: `transaction_id`, `category`, `amount`, `timestamp` — both batch and streamed data land in this one table.
 
-## Setup
+**Setup**
 
-**1. Configure environment** — create `.env`:
-```env
+**1. Configure environment** 
+— create `.env`:
+
 DB_USER=hassan
 DB_PASSWORD=your_password
 DB_HOST=127.0.0.1
