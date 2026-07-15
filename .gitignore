@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+venv/
+*.pdf
+DE_project_report.docx
+Screenshot*.png
