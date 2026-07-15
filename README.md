@@ -11,7 +11,6 @@ Apache Kafka, Apache Spark (Structured Streaming), PostgreSQL, Streamlit, SQLAlc
 CSV (historical) ──► pipeline_init.py ──► PostgreSQL
 
 stream_producer.py ──► Kafka ──► spark_processor.py ──► PostgreSQL ──► dashboard.py (Streamlit)
-```
 
 **How It Works**
 - **Batch layer**: `pipeline_init.py` loads 15,000 historical transactions into PostgreSQL.
